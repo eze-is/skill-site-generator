@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>web-access — Real Browser Automation for AI Agents</title>
+  <meta name="description" content="Give your AI agent eyes and hands on the web. Connect to your daily Chrome with full login state. Search, browse, click, extract — your agent operates the web like you do. 4000+ stars on GitHub.">
+  <meta name="keywords" content="web-access, agent skill, AI agent, browser automation, CDP, Chrome DevTools Protocol, Claude Code, Cursor, SKILL.md, web scraping, authenticated browsing">
+  <meta name="author" content="一泽Eze">
+  <link rel="canonical" href="https://web-access.eze.is/">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#fafafa">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="web-access — Real Browser Automation for AI Agents">
+  <meta property="og:description" content="Give your AI agent eyes and hands on the web. Connect to your daily Chrome with full login state, automate browsing, extraction, and interaction.">
+  <meta property="og:url" content="https://web-access.eze.is/">
+  <meta property="og:site_name" content="web-access">
+  <meta property="og:image" content="https://web-access.eze.is/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="web-access — Real Browser Automation for AI Agents">
+  <meta name="twitter:description" content="Give your AI agent eyes and hands on the web. Connect to your daily Chrome with full login state.">
+  <meta name="twitter:image" content="https://web-access.eze.is/og.png">
+  <meta name="twitter:creator" content="@eze_is_1">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "web-access",
+    "description": "Agent Skill for real browser automation. Give your AI agent eyes and hands on the web via Chrome DevTools Protocol.",
+    "url": "https://web-access.eze.is/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "macOS, Linux, Windows",
+    "author": {
+      "@type": "Person",
+      "name": "一泽Eze",
+      "url": "https://x.com/eze_is_1"
+    },
+    "codeRepository": "https://github.com/eze-is/web-access",
+    "license": "https://opensource.org/licenses/MIT",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "ratingCount": "4000",
+      "bestRating": "5"
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://web-access.eze.is/" },
+      { "@type": "ListItem", "position": 2, "name": "Capabilities", "item": "https://web-access.eze.is/#capabilities" },
+      { "@type": "ListItem", "position": 3, "name": "Install", "item": "https://web-access.eze.is/#install" },
+      { "@type": "ListItem", "position": 4, "name": "FAQ", "item": "https://web-access.eze.is/#faq" }
+    ]
+  }
+  </script>
+
+  <!-- FAQ structured data for Google rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is web-access safe? Can the agent mess up my browser?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "All operations happen in new background tabs created by the agent. Your existing tabs are never touched. When the task is done, the agent closes its own tabs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does web-access work with private or internal websites?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Since it uses your real Chrome with all your login sessions, it can access any site you're logged into — including corporate intranets, admin dashboards, and internal tools."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will websites detect and block web-access?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The skill operates through your real browser, not a headless automation tool. Most websites can't distinguish it from normal browsing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can multiple agents use the browser simultaneously?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Each sub-agent creates its own tabs and operates independently. They share one Chrome instance and one proxy, using different tab IDs — no conflicts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does web-access work outside Claude Code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "web-access follows the SKILL.md standard. It works with any agent harness that supports skills — Claude Code, Cursor, Gemini CLI, Codex CLI, and others."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">web-access</a>
+      <div class="nav-links">
+        <a href="#problem" data-i18n="nav.why">Why</a>
+        <a href="#architecture" data-i18n="nav.how">How</a>
+        <a href="#capabilities" data-i18n="nav.capabilities">Capabilities</a>
+        <a href="#install" data-i18n="nav.install">Install</a>
+        <a href="#faq">FAQ</a>
+        <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">EN / 中</button>
+        <a href="https://github.com/eze-is/web-access" target="_blank" class="nav-github">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <span class="star-count">4.1k</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-badge" data-i18n="hero.badge">Agent Skill</div>
+      <h1 class="hero-title">web-access</h1>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">Give your AI agent eyes and hands on the web.</p>
+      <p class="hero-desc" data-i18n="hero.desc">Connect to your daily browser with full login state. Search, browse, click, extract — your agent operates the web like you do.</p>
+      <div class="hero-actions">
+        <div class="hero-install">
+          <span class="install-prompt">$</span>
+          <code>npx skills add eze-is/web-access</code>
+          <button class="copy-btn" data-copy="npx skills add eze-is/web-access" aria-label="Copy">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          </button>
+        </div>
+        <a href="#capabilities" class="hero-cta" data-i18n="hero.cta">See what it can do</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>4,000+</strong> <span data-i18n="hero.stars">stars</span></div>
+        <div class="stat-sep"></div>
+        <div class="stat"><strong>290+</strong> forks</div>
+        <div class="stat-sep"></div>
+        <div class="stat"><strong>395+</strong> <span data-i18n="hero.installs">installs via npx</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="terminal-title">Agent Terminal</span>
+        </div>
+        <div class="terminal-body" id="terminal-demo">
+          <div class="terminal-line">
+            <span class="t-prompt">&gt;</span>
+            <span class="t-text" id="demo-prompt"></span>
+            <span class="t-cursor">|</span>
+          </div>
+          <div class="terminal-output" id="demo-output"></div>
+        </div>
+      </div>
+      <div class="browser-window">
+        <div class="browser-header">
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <div class="browser-url">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span id="browser-url-text">your-chrome.local</span>
+          </div>
+        </div>
+        <div class="browser-body" id="browser-demo">
+          <div class="browser-placeholder">
+            <div class="browser-skeleton">
+              <div class="skel-nav"></div>
+              <div class="skel-hero-block"></div>
+              <div class="skel-lines">
+                <div class="skel-line w80"></div>
+                <div class="skel-line w60"></div>
+                <div class="skel-line w70"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos -->
+  <section class="logos-section">
+    <p class="logos-label" data-i18n="logos.label">Works with</p>
+    <div class="logos-row">
+      <div class="logo-item">Claude Code</div>
+      <div class="logo-item">Cursor</div>
+      <div class="logo-item">Gemini CLI</div>
+      <div class="logo-item">Codex CLI</div>
+      <div class="logo-item">Kilo Code</div>
+      <div class="logo-item">Any SKILL.md agent</div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section problem-section" id="problem">
+    <div class="section-inner">
+      <div class="section-label" data-i18n="problem.label">The Problem</div>
+      <h2 class="section-title" data-i18n="problem.title">Your agent is blind to the real web.</h2>
+      <p class="section-desc" data-i18n="problem.desc">Built-in web tools return summaries, not source. They can't log in, can't interact, can't see what you see.</p>
+      <div class="comparison-grid">
+        <div class="comparison-card without">
+          <div class="comparison-header">
+            <span class="comparison-icon">&#x2715;</span>
+            <span data-i18n="problem.without">Without web-access</span>
+          </div>
+          <ul class="comparison-list">
+            <li data-i18n="problem.w1">Search returns snippets, not real pages</li>
+            <li data-i18n="problem.w2">No login state — paywalls, auth walls everywhere</li>
+            <li data-i18n="problem.w3">Dynamic content invisible (SPA, lazy-load)</li>
+            <li data-i18n="problem.w4">Anti-scraping platforms completely blocked</li>
+            <li data-i18n="problem.w5">Can't click, scroll, fill forms, or navigate</li>
+            <li data-i18n="problem.w6">One tool at a time, no parallel research</li>
+          </ul>
+        </div>
+        <div class="comparison-card with">
+          <div class="comparison-header">
+            <span class="comparison-icon">&#x2713;</span>
+            <span data-i18n="problem.with">With web-access</span>
+          </div>
+          <ul class="comparison-list">
+            <li data-i18n="problem.a1">Full page content from the real browser DOM</li>
+            <li data-i18n="problem.a2">Your Chrome's login sessions, cookies, everything</li>
+            <li data-i18n="problem.a3">JavaScript-rendered content fully accessible</li>
+            <li data-i18n="problem.a4">Xiaohongshu, WeChat, Zhihu — all work</li>
+            <li data-i18n="problem.a5">Click, scroll, type, upload files, take screenshots</li>
+            <li data-i18n="problem.a6">Parallel sub-agents, each with their own tabs</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section class="section arch-section" id="architecture">
+    <div class="section-inner">
+      <div class="section-label" data-i18n="arch.label">How It Works</div>
+      <h2 class="section-title" data-i18n="arch.title">Three layers. Zero new browsers.</h2>
+      <p class="section-desc" data-i18n="arch.desc">web-access connects directly to your daily Chrome via CDP. No Puppeteer, no headless browser, no separate profile. Your agent sees exactly what you see.</p>
+      <div class="arch-diagram">
+        <div class="arch-node agent-node">
+          <div class="arch-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a4 4 0 014 4v1a4 4 0 01-8 0V6a4 4 0 014-4z"/><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="10" r="1" fill="currentColor"/></svg>
+          </div>
+          <div class="arch-label" data-i18n="arch.agent">AI Agent</div>
+          <div class="arch-sub" data-i18n="arch.agentSub">Claude Code, Cursor, etc.</div>
+        </div>
+        <div class="arch-connector">
+          <div class="arch-line"></div>
+          <div class="arch-flow-label">HTTP API</div>
+        </div>
+        <div class="arch-node proxy-node">
+          <div class="arch-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="3"/><path d="M7 8h4M7 12h8M7 16h6"/></svg>
+          </div>
+          <div class="arch-label" data-i18n="arch.proxy">CDP Proxy</div>
+          <div class="arch-sub" data-i18n="arch.proxySub">Lightweight local bridge</div>
+        </div>
+        <div class="arch-connector">
+          <div class="arch-line"></div>
+          <div class="arch-flow-label">WebSocket</div>
+        </div>
+        <div class="arch-node chrome-node">
+          <div class="arch-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><path d="M21.17 8H12M12 12l-5.07 8.79M3.95 6.06L9.05 16"/></svg>
+          </div>
+          <div class="arch-label" data-i18n="arch.chrome">Your Chrome</div>
+          <div class="arch-sub" data-i18n="arch.chromeSub">Login state, cookies, extensions</div>
+        </div>
+      </div>
+      <div class="arch-features">
+        <div class="arch-feature">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 data-i18n="arch.see">See</h3>
+          <p data-i18n="arch.seeDesc">Query the DOM, extract text, discover links and structure</p>
+        </div>
+        <div class="arch-feature">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <h3 data-i18n="arch.act">Act</h3>
+          <p data-i18n="arch.actDesc">Click buttons, scroll pages, fill forms, upload files</p>
+        </div>
+        <div class="arch-feature">
+          <div class="feature-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3 data-i18n="arch.read">Read</h3>
+          <p data-i18n="arch.readDesc">Extract content, capture screenshots, analyze video frames</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section class="section cap-section" id="capabilities">
+    <div class="section-inner">
+      <div class="section-label" data-i18n="cap.label">Capabilities</div>
+      <h2 class="section-title" data-i18n="cap.title">Everything your agent needs on the web.</h2>
+      <div class="cap-grid">
+        <div class="cap-card" data-cap="research">
+          <div class="cap-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          </div>
+          <h3 data-i18n="cap.research">Deep Research</h3>
+          <p data-i18n="cap.researchDesc">Multi-layer search: engine results → primary sources → full page extraction. Verify facts against official documentation, not second-hand reports.</p>
+          <div class="cap-example">
+            <code>&gt; "Research the latest Claude model pricing and compare with GPT-4o"</code>
+          </div>
+        </div>
+        <div class="cap-card" data-cap="auth">
+          <div class="cap-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+          </div>
+          <h3 data-i18n="cap.auth">Authenticated Access</h3>
+          <p data-i18n="cap.authDesc">Operates inside your logged-in Chrome. Access dashboards, admin panels, internal tools — anything you can see, your agent can see.</p>
+          <div class="cap-example">
+            <code>&gt; "Check my Vercel deployment status and summarize recent errors"</code>
+          </div>
+        </div>
+        <div class="cap-card" data-cap="extract">
+          <div class="cap-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <h3 data-i18n="cap.extract">Anti-Scraping Bypass</h3>
+          <p data-i18n="cap.extractDesc">Xiaohongshu, WeChat Official Accounts, Zhihu, Weibo — platforms that block static fetching work naturally through the real browser.</p>
+          <div class="cap-example">
+            <code>&gt; "Grab the top 10 posts about AI agents on Xiaohongshu"</code>
+          </div>
+        </div>
+        <div class="cap-card" data-cap="interact">
+          <div class="cap-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 3a3 3 0 00-3 3v12a3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3H6a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3V6a3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3h12a3 3 0 003-3 3 3 0 00-3-3z"/></svg>
+          </div>
+          <h3 data-i18n="cap.interact">Full Interaction</h3>
+          <p data-i18n="cap.interactDesc">Click, scroll, type, upload files, handle popups. Navigate multi-step flows like a human — form submissions, checkout processes, configuration wizards.</p>
+          <div class="cap-example">
+            <code>&gt; "Fill out the application form on this page with my info"</code>
+          </div>
+        </div>
+        <div class="cap-card" data-cap="video">
+          <div class="cap-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          </div>
+          <h3 data-i18n="cap.video">Video Analysis</h3>
+          <p data-i18n="cap.videoDesc">Seek to any timestamp, capture frames, analyze video content visually. Extract information from tutorials, presentations, and recordings.</p>
+          <div class="cap-example">
+            <code>&gt; "Watch this demo video and summarize the key features shown"</code>
+          </div>
+        </div>
+        <div class="cap-card" data-cap="parallel">
+          <div class="cap-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="7" height="7" rx="1"/><rect x="15" y="3" width="7" height="7" rx="1"/><rect x="2" y="14" width="7" height="7" rx="1"/><rect x="15" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h3 data-i18n="cap.parallel">Parallel Sub-Agents</h3>
+          <p data-i18n="cap.parallelDesc">Spawn multiple agents, each with their own browser tabs. Research N topics simultaneously — total time equals the slowest single task.</p>
+          <div class="cap-example">
+            <code>&gt; "Compare these 5 competitor products — pricing, features, reviews"</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- API Preview -->
+  <section class="section api-section" id="api">
+    <div class="section-inner">
+      <div class="section-label" data-i18n="api.label">Under the Hood</div>
+      <h2 class="section-title" data-i18n="api.title">Simple HTTP API. Powerful primitives.</h2>
+      <p class="section-desc" data-i18n="api.desc">The CDP Proxy exposes a clean REST API. Your agent calls curl — no SDK, no dependency, no complexity.</p>
+      <div class="api-grid">
+        <div class="api-card">
+          <div class="api-method">GET</div>
+          <code class="api-endpoint">/new?url=...</code>
+          <span class="api-desc" data-i18n="api.new">Open a new background tab</span>
+        </div>
+        <div class="api-card">
+          <div class="api-method">POST</div>
+          <code class="api-endpoint">/eval</code>
+          <span class="api-desc" data-i18n="api.eval">Execute JavaScript in page context</span>
+        </div>
+        <div class="api-card">
+          <div class="api-method">POST</div>
+          <code class="api-endpoint">/click</code>
+          <span class="api-desc" data-i18n="api.click">Click an element by CSS selector</span>
+        </div>
+        <div class="api-card">
+          <div class="api-method">GET</div>
+          <code class="api-endpoint">/screenshot</code>
+          <span class="api-desc" data-i18n="api.screenshot">Capture page or video frame</span>
+        </div>
+        <div class="api-card">
+          <div class="api-method">GET</div>
+          <code class="api-endpoint">/scroll</code>
+          <span class="api-desc" data-i18n="api.scroll">Scroll to position or direction</span>
+        </div>
+        <div class="api-card">
+          <div class="api-method">GET</div>
+          <code class="api-endpoint">/navigate</code>
+          <span class="api-desc" data-i18n="api.navigate">Navigate to a new URL</span>
+        </div>
+        <div class="api-card">
+          <div class="api-method">POST</div>
+          <code class="api-endpoint">/setFiles</code>
+          <span class="api-desc" data-i18n="api.setFiles">Upload local files to file inputs</span>
+        </div>
+        <div class="api-card">
+          <div class="api-method">GET</div>
+          <code class="api-endpoint">/close</code>
+          <span class="api-desc" data-i18n="api.close">Close a tab when done</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Install -->
+  <section class="section install-section" id="install">
+    <div class="section-inner">
+      <div class="section-label" data-i18n="install.label">Get Started</div>
+      <h2 class="section-title" data-i18n="install.title">Two minutes to full web access.</h2>
+      <div class="install-steps">
+        <div class="install-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h3 data-i18n="install.step1">Install the skill</h3>
+            <div class="code-block">
+              <code>npx skills add eze-is/web-access</code>
+              <button class="copy-btn" data-copy="npx skills add eze-is/web-access" aria-label="Copy">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h3 data-i18n="install.step2">Enable Chrome debugging</h3>
+            <p data-i18n="install.step2desc" data-i18n-html="true">Open <code>chrome://inspect/#remote-debugging</code> in Chrome, check <strong>"Allow remote debugging"</strong>, restart Chrome.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h3 data-i18n="install.step3">Start using it</h3>
+            <p data-i18n="install.step3desc">Ask your agent to browse, search, or interact with any website. The skill activates automatically.</p>
+          </div>
+        </div>
+      </div>
+      <div class="install-req">
+        <h4 data-i18n="install.req">Requirements</h4>
+        <div class="req-items">
+          <span class="req-item">Node.js 22+</span>
+          <span class="req-item">Google Chrome</span>
+          <span class="req-item">Any SKILL.md-compatible agent</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section" id="faq">
+    <div class="section-inner">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title" data-i18n="faq.title">Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary data-i18n="faq.q1">Is this safe? Can the agent mess up my browser?</summary>
+          <p data-i18n="faq.a1" data-i18n-html="true">All operations happen in <strong>new background tabs</strong> created by the agent. Your existing tabs are never touched. When the task is done, the agent closes its own tabs.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q2">Does this work with private/internal websites?</summary>
+          <p data-i18n="faq.a2">Yes. Since it uses your real Chrome with all your login sessions, it can access any site you're logged into — including corporate intranets, admin dashboards, and internal tools.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q3">Will websites detect and block this?</summary>
+          <p data-i18n="faq.a3">The skill operates through your real browser, not a headless automation tool. Most websites can't distinguish it from normal browsing. However, extremely aggressive anti-bot systems may still flag automated patterns.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q4">Can multiple agents use the browser simultaneously?</summary>
+          <p data-i18n="faq.a4">Yes. Each sub-agent creates its own tabs and operates independently. They share one Chrome instance and one proxy, using different tab IDs — no conflicts.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q5">Does it work outside Claude Code?</summary>
+          <p data-i18n="faq.a5">web-access follows the SKILL.md standard. It works with any agent harness that supports skills — Claude Code, Cursor, Gemini CLI, Codex CLI, and others.</p>
+        </details>
+        <details class="faq-item">
+          <summary data-i18n="faq.q6">What about headless/server environments?</summary>
+          <p data-i18n="faq.a6">web-access is designed for local development where you have a running Chrome instance. For server environments, you'd need a headed Chrome session accessible via CDP.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">web-access</span>
+        <span class="footer-author">by <a href="https://x.com/eze_is_1" target="_blank">一泽Eze</a></span>
+      </div>
+      <div class="footer-right">
+        <a href="https://github.com/eze-is/web-access" target="_blank">GitHub</a>
+        <a href="https://github.com/eze-is/web-access/blob/main/LICENSE" target="_blank">MIT License</a>
+      </div>
+    </div>
+  </footer>
+
+  <noscript>
+    <style>.t-cursor { display: none; } .terminal-output { display: none; }</style>
+  </noscript>
+  <script src="script.js"></script>
+</body>
+</html>
