@@ -4,9 +4,12 @@
 
 > 给你的 skill 做一个官网，只需一句话。
 
+**[官网](https://eze-is.github.io/skill-site-generator/)** — 这个页面本身就是用 skill-site-generator 生成的。
+
 ## 效果示例
 
-用此 skill 生成的官网：[web-access.eze.is](https://web-access.eze.is)
+- [skill-site-generator 官网](https://eze-is.github.io/skill-site-generator/)（本 skill 自己的官网，由自己生成）
+- [web-access.eze.is](https://web-access.eze.is)（web-access skill 的官网）
 
 ## 安装
 

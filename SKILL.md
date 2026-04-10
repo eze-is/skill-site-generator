@@ -26,11 +26,14 @@ metadata:
 
 **前置条件：skill 必须有公开的 GitHub 仓库。** 官网的存在意义是让别人发现并安装这个 skill——没有公开仓库，安装命令无处指向，官网就没有意义。
 
-如果 skill 还没有仓库，先帮用户创建：
+如果 skill 还没有仓库，先帮用户创建并确保兼容 npx skills 生态：
 
 1. 确认 skill 目录中有 `SKILL.md`（必需）和相关文件
-2. `gh repo create {skill-name} --public --source=. --push`
-3. 确认仓库可访问后继续
+2. 确认 SKILL.md 在仓库根目录或可被 `npx skills` 发现的子目录中（npx skills 会扫描仓库中所有 SKILL.md）
+3. `gh repo create {skill-name} --public --source=. --push`
+4. 确认仓库可访问后继续
+
+创建完成后，用户的 skill 即可通过 `npx skills add {owner}/{skill-name}` 安装，且会自动出现在 [skills.sh](https://skills.sh) 目录中。
 
 ### 2. 读取与理解
 
