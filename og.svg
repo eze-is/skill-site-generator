@@ -1,0 +1,30 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fafafa"/>
+      <stop offset="100%" style="stop-color:#f0f0ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <text x="80" y="100" font-family="monospace" font-size="16" font-weight="600" fill="#e84393" letter-spacing="2">AGENT SKILL</text>
+  <text x="80" y="190" font-family="monospace" font-size="72" font-weight="700" fill="#1a1a1a" letter-spacing="-2">skill-site-generator</text>
+  <text x="80" y="260" font-family="sans-serif" font-size="28" fill="#4a4a4a">Turn any SKILL.md into a polished landing page</text>
+  <text x="80" y="340" font-family="monospace" font-size="18" font-weight="600" fill="#1a1a1a">0 stars</text>
+  <text x="260" y="340" font-family="monospace" font-size="18" font-weight="600" fill="#1a1a1a">0 forks</text>
+  
+  <rect x="80" y="420" width="460" height="44" rx="8" fill="#1a1a1a"/>
+  <text x="100" y="448" font-family="monospace" font-size="16" fill="#888">$</text>
+  <text x="120" y="448" font-family="monospace" font-size="16" fill="#e0e0e0">npx skills add eze-is/skill-site-generator</text>
+  <rect x="750" y="120" width="370" height="280" rx="12" fill="#1a1a1a"/>
+  <rect x="750" y="120" width="370" height="36" rx="12" fill="#222"/>
+  <rect x="750" y="144" width="370" height="2" fill="#333"/>
+  <circle cx="770" cy="138" r="5" fill="#ff5f57"/>
+  <circle cx="786" cy="138" r="5" fill="#febc2e"/>
+  <circle cx="802" cy="138" r="5" fill="#28c840"/>
+  <text x="770" y="185" font-family="monospace" font-size="14" fill="#e84393">&gt;</text>
+  <text x="790" y="185" font-family="monospace" font-size="13" fill="#ccc">Using skill-site-generator...</text>
+  <text x="770" y="215" font-family="monospace" font-size="12" fill="#666">Processing...</text>
+  <text x="770" y="245" font-family="monospace" font-size="12" fill="#4ade80">✓ Done</text>
+  <text x="1000" y="580" font-family="sans-serif" font-size="16" fill="#8a8a8a">by 一泽Eze</text>
+  <text x="80" y="580" font-family="sans-serif" font-size="16" fill="#8a8a8a">eze-is.github.io/skill-site-generator/</text>
+</svg>
